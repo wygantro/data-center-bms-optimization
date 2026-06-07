@@ -1,0 +1,693 @@
+{
+  "meta": {
+    "name": "DataCenter_BMS_Overview",
+    "description": "Starter Ignition Perspective wireframe/config for a data center BMS dashboard.",
+    "version": "1.0",
+    "notes": "Tag paths are placeholders. Replace [default]DataCenter/... with your project tag provider paths. This file is intended as a structured starter view config/wireframe rather than a guaranteed one-click import for every Ignition version."
+  },
+  "root": {
+    "type": "ia.container.coord",
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#0f172a",
+        "color": "#e5e7eb",
+        "fontFamily": "Inter, Arial, sans-serif"
+      }
+    },
+    "children": [
+      {
+        "name": "Header",
+        "type": "ia.container.flex",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 8
+        },
+        "props": {
+          "direction": "row",
+          "justify": "space-between",
+          "alignItems": "center",
+          "style": {
+            "backgroundColor": "#111827",
+            "borderBottom": "1px solid #334155",
+            "padding": "0 18px"
+          }
+        },
+        "children": [
+          {
+            "name": "SiteTitle",
+            "type": "ia.display.label",
+            "props": {
+              "text": "Data Center BMS Overview",
+              "style": {
+                "fontSize": "24px",
+                "fontWeight": "700"
+              }
+            }
+          },
+          {
+            "name": "HeaderKPIs",
+            "type": "ia.container.flex",
+            "props": {
+              "direction": "row",
+              "gap": "16px"
+            },
+            "children": [
+              {
+                "name": "CurrentLoad",
+                "type": "ia.display.label",
+                "props": {
+                  "text": "IT Load: {value} MW"
+                },
+                "meta": {
+                  "bindingSuggestion": "[default]DataCenter/Electrical/IT_Load_MW"
+                }
+              },
+              {
+                "name": "ActiveAlarms",
+                "type": "ia.display.label",
+                "props": {
+                  "text": "Active Alarms: {value}"
+                },
+                "meta": {
+                  "bindingSuggestion": "[default]DataCenter/Alarms/Active_Count"
+                }
+              },
+              {
+                "name": "DateTime",
+                "type": "ia.display.label",
+                "props": {
+                  "text": "{session.props.device.timezone}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "LeftNavigation",
+        "type": "ia.container.flex",
+        "position": {
+          "x": 0,
+          "y": 8,
+          "width": 15,
+          "height": 84
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "backgroundColor": "#111827",
+            "borderRight": "1px solid #334155",
+            "padding": "14px"
+          }
+        },
+        "children": [
+          {
+            "name": "NavOverview",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Overview"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/overview')"
+              }
+            }
+          },
+          {
+            "name": "NavElectrical",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Electrical"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/electrical')"
+              }
+            }
+          },
+          {
+            "name": "NavCooling",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Cooling"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/cooling')"
+              }
+            }
+          },
+          {
+            "name": "NavDataHall",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Data Hall"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/data-hall')"
+              }
+            }
+          },
+          {
+            "name": "NavAlarms",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Alarms"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/alarms')"
+              }
+            }
+          },
+          {
+            "name": "NavTrends",
+            "type": "ia.input.button",
+            "props": {
+              "text": "Trends"
+            },
+            "events": {
+              "onActionPerformed": {
+                "script": "system.perspective.navigate('/trends')"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "MainContent",
+        "type": "ia.container.coord",
+        "position": {
+          "x": 15,
+          "y": 8,
+          "width": 85,
+          "height": 84
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "padding": "18px"
+          }
+        },
+        "children": [
+          {
+            "name": "KpiGrid",
+            "type": "ia.container.flex",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "width": 100,
+              "height": 18
+            },
+            "props": {
+              "direction": "row",
+              "gap": "12px"
+            },
+            "children": [
+              {
+                "name": "SiteStatusCard",
+                "type": "ia.container.flex",
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "backgroundColor": "#1e293b",
+                    "borderRadius": "10px",
+                    "padding": "14px"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Label",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "SITE STATUS"
+                    }
+                  },
+                  {
+                    "name": "Value",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "NORMAL",
+                      "style": {
+                        "fontSize": "28px",
+                        "fontWeight": "700",
+                        "color": "#22c55e"
+                      }
+                    },
+                    "meta": {
+                      "bindingSuggestion": "[default]DataCenter/Site/Status"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "PUECard",
+                "type": "ia.container.flex",
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "backgroundColor": "#1e293b",
+                    "borderRadius": "10px",
+                    "padding": "14px"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Label",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "PUE"
+                    }
+                  },
+                  {
+                    "name": "Value",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "1.32",
+                      "style": {
+                        "fontSize": "28px",
+                        "fontWeight": "700"
+                      }
+                    },
+                    "meta": {
+                      "bindingSuggestion": "[default]DataCenter/Energy/PUE"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "ITLoadCard",
+                "type": "ia.container.flex",
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "backgroundColor": "#1e293b",
+                    "borderRadius": "10px",
+                    "padding": "14px"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Label",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "IT LOAD"
+                    }
+                  },
+                  {
+                    "name": "Value",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "7.8 MW",
+                      "style": {
+                        "fontSize": "28px",
+                        "fontWeight": "700"
+                      }
+                    },
+                    "meta": {
+                      "bindingSuggestion": "[default]DataCenter/Electrical/IT_Load_MW"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "CoolingCapacityCard",
+                "type": "ia.container.flex",
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "backgroundColor": "#1e293b",
+                    "borderRadius": "10px",
+                    "padding": "14px"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Label",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "COOLING CAPACITY"
+                    }
+                  },
+                  {
+                    "name": "Value",
+                    "type": "ia.display.label",
+                    "props": {
+                      "text": "65% USED",
+                      "style": {
+                        "fontSize": "28px",
+                        "fontWeight": "700"
+                      }
+                    },
+                    "meta": {
+                      "bindingSuggestion": "[default]DataCenter/Cooling/Capacity_Used_Pct"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "DataHallHeatmapPanel",
+            "type": "ia.container.coord",
+            "position": {
+              "x": 0,
+              "y": 20,
+              "width": 48,
+              "height": 45
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#1e293b",
+                "borderRadius": "10px",
+                "padding": "12px"
+              }
+            },
+            "children": [
+              {
+                "name": "Title",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 3,
+                  "y": 2,
+                  "width": 94,
+                  "height": 8
+                },
+                "props": {
+                  "text": "Data Hall Rack Temperature Heatmap",
+                  "style": {
+                    "fontSize": "18px",
+                    "fontWeight": "700"
+                  }
+                }
+              },
+              {
+                "name": "RackGridPlaceholder",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 5,
+                  "y": 14,
+                  "width": 90,
+                  "height": 78
+                },
+                "props": {
+                  "text": "Rack map / SVG heatmap placeholder\\nA01 A02 A03 A04\\nB01 B02 B03 B04\\nC01 C02 C03 C04",
+                  "style": {
+                    "backgroundColor": "#0f172a",
+                    "border": "1px dashed #64748b",
+                    "borderRadius": "8px",
+                    "textAlign": "center",
+                    "whiteSpace": "pre-line",
+                    "paddingTop": "60px"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "PowerSingleLinePanel",
+            "type": "ia.container.coord",
+            "position": {
+              "x": 50,
+              "y": 20,
+              "width": 50,
+              "height": 22
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#1e293b",
+                "borderRadius": "10px",
+                "padding": "12px"
+              }
+            },
+            "children": [
+              {
+                "name": "Title",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 3,
+                  "y": 3,
+                  "width": 94,
+                  "height": 15
+                },
+                "props": {
+                  "text": "Electrical Single-Line Overview",
+                  "style": {
+                    "fontSize": "18px",
+                    "fontWeight": "700"
+                  }
+                }
+              },
+              {
+                "name": "PowerFlow",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 5,
+                  "y": 24,
+                  "width": 90,
+                  "height": 66
+                },
+                "props": {
+                  "text": "Utility → Switchgear → UPS → PDU → RPP → Rack Load",
+                  "style": {
+                    "backgroundColor": "#0f172a",
+                    "border": "1px dashed #64748b",
+                    "borderRadius": "8px",
+                    "textAlign": "center",
+                    "paddingTop": "35px"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "CoolingFlowPanel",
+            "type": "ia.container.coord",
+            "position": {
+              "x": 50,
+              "y": 44,
+              "width": 50,
+              "height": 21
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#1e293b",
+                "borderRadius": "10px",
+                "padding": "12px"
+              }
+            },
+            "children": [
+              {
+                "name": "Title",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 3,
+                  "y": 3,
+                  "width": 94,
+                  "height": 15
+                },
+                "props": {
+                  "text": "Cooling System Overview",
+                  "style": {
+                    "fontSize": "18px",
+                    "fontWeight": "700"
+                  }
+                }
+              },
+              {
+                "name": "CoolingFlow",
+                "type": "ia.display.label",
+                "position": {
+                  "x": 5,
+                  "y": 24,
+                  "width": 90,
+                  "height": 66
+                },
+                "props": {
+                  "text": "Chiller → Pump → CRAH/CRAC → Data Hall → Return Air",
+                  "style": {
+                    "backgroundColor": "#0f172a",
+                    "border": "1px dashed #64748b",
+                    "borderRadius": "8px",
+                    "textAlign": "center",
+                    "paddingTop": "35px"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "TrendPanel",
+            "type": "ia.chart.powerchart",
+            "position": {
+              "x": 0,
+              "y": 67,
+              "width": 48,
+              "height": 30
+            },
+            "props": {
+              "config": {
+                "title": "Site Load / PUE Trend",
+                "mode": "chart"
+              },
+              "pens": [
+                {
+                  "name": "IT Load MW",
+                  "data": {
+                    "source": "histprov:Default:/drv:Ignition Gateway:default:/tag:DataCenter/Electrical/IT_Load_MW"
+                  }
+                },
+                {
+                  "name": "PUE",
+                  "data": {
+                    "source": "histprov:Default:/drv:Ignition Gateway:default:/tag:DataCenter/Energy/PUE"
+                  }
+                }
+              ],
+              "style": {
+                "backgroundColor": "#1e293b",
+                "borderRadius": "10px"
+              }
+            }
+          },
+          {
+            "name": "AlarmTablePanel",
+            "type": "ia.display.table",
+            "position": {
+              "x": 50,
+              "y": 67,
+              "width": 50,
+              "height": 30
+            },
+            "props": {
+              "data": [
+                {
+                  "priority": "Critical",
+                  "area": "UPS-A",
+                  "equipment": "UPS-A1",
+                  "description": "Battery runtime below threshold",
+                  "time": "Placeholder"
+                },
+                {
+                  "priority": "Major",
+                  "area": "Cooling",
+                  "equipment": "CRAH-03",
+                  "description": "Supply air temperature high",
+                  "time": "Placeholder"
+                }
+              ],
+              "columns": [
+                {
+                  "field": "priority",
+                  "header": "Priority"
+                },
+                {
+                  "field": "area",
+                  "header": "Area"
+                },
+                {
+                  "field": "equipment",
+                  "header": "Equipment"
+                },
+                {
+                  "field": "description",
+                  "header": "Description"
+                },
+                {
+                  "field": "time",
+                  "header": "Time"
+                }
+              ],
+              "style": {
+                "backgroundColor": "#1e293b",
+                "borderRadius": "10px"
+              }
+            },
+            "meta": {
+              "bindingSuggestion": "Bind data to a named query or system.alarm.queryStatus() transform."
+            }
+          }
+        ]
+      },
+      {
+        "name": "AlarmBanner",
+        "type": "ia.display.label",
+        "position": {
+          "x": 0,
+          "y": 92,
+          "width": 100,
+          "height": 8
+        },
+        "props": {
+          "text": "Alarm/Event Banner: Critical alarms, unacknowledged events, maintenance bypasses, and operator notes",
+          "style": {
+            "backgroundColor": "#7f1d1d",
+            "color": "#ffffff",
+            "fontWeight": "700",
+            "padding": "14px 18px"
+          }
+        },
+        "meta": {
+          "bindingSuggestion": "Bind text/color to alarm summary state."
+        }
+      }
+    ]
+  },
+  "recommendedViews": [
+    {
+      "path": "/overview",
+      "purpose": "Executive/site status with KPIs, heatmap, power flow, cooling flow, alarms, and trends."
+    },
+    {
+      "path": "/electrical",
+      "purpose": "Utility, switchgear, UPS, generator, PDU/RPP drill-downs with voltage/current/kW/kVA/frequency/PF."
+    },
+    {
+      "path": "/cooling",
+      "purpose": "Chillers, towers, pumps, CRAH/CRAC, supply/return temps, delta T, flow, pressure, humidity."
+    },
+    {
+      "path": "/data-hall",
+      "purpose": "Rack map with inlet temp, outlet temp, kW/rack, humidity, alarm overlay, popup details."
+    },
+    {
+      "path": "/alarms",
+      "purpose": "Alarm status table, filters, acknowledged state, recurring alarms, MTTR metrics."
+    },
+    {
+      "path": "/trends",
+      "purpose": "PowerChart pages for PUE, IT load, cooling load, UPS load, generator runtime, environmental trends."
+    }
+  ],
+  "tagPathPlaceholders": {
+    "siteStatus": "[default]DataCenter/Site/Status",
+    "activeAlarmCount": "[default]DataCenter/Alarms/Active_Count",
+    "criticalAlarmCount": "[default]DataCenter/Alarms/Critical_Count",
+    "itLoadMW": "[default]DataCenter/Electrical/IT_Load_MW",
+    "facilityLoadMW": "[default]DataCenter/Electrical/Facility_Load_MW",
+    "pue": "[default]DataCenter/Energy/PUE",
+    "coolingCapacityUsedPct": "[default]DataCenter/Cooling/Capacity_Used_Pct",
+    "upsRuntimeMinutes": "[default]DataCenter/Electrical/UPS/Runtime_Minutes",
+    "generatorAvailableCount": "[default]DataCenter/Electrical/Generators/Available_Count",
+    "rackTempFolder": "[default]DataCenter/DataHall/Racks",
+    "crahFolder": "[default]DataCenter/Cooling/CRAH",
+    "chillerFolder": "[default]DataCenter/Cooling/Chillers"
+  },
+  "styleTokens": {
+    "normal": "#22c55e",
+    "warning": "#facc15",
+    "alarm": "#ef4444",
+    "offline": "#64748b",
+    "background": "#0f172a",
+    "panel": "#1e293b",
+    "header": "#111827",
+    "text": "#e5e7eb"
+  }
+}
