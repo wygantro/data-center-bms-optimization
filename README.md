@@ -4,4 +4,6 @@
 
 # System Archetecture
 
-# Data Center Simulation
+# Data Center Simulation (MATLAB)
+
+# SCADA Platform (Igntion VM + Cloud)
